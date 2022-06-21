@@ -1,7 +1,6 @@
 package io.hexlet.arrays;
 
-import java.util.Arrays;
-import org.apache.commons.lang3.ArrayUtils;
+import java.util.HashSet;
 
 public class UniqChars {
     public static void main(String[] args) {
@@ -16,6 +15,18 @@ public class UniqChars {
 
         String text4 = "Fear cuts deeper than swords.";
         System.out.println(UniqChars.countUniqChars(text4)); // 16
+
+        String text5 = "yyab";
+        System.out.println(UniqChars.cntDistinct(text5)); // 3
+
+        String text6 = "You know nothing Jon Snow";
+        System.out.println(UniqChars.cntDistinct(text6)); // 13
+
+        String text7 = "";
+        System.out.println(UniqChars.cntDistinct(text7)); // 0
+
+        String text8 = "Fear cuts deeper than swords.";
+        System.out.println(UniqChars.cntDistinct(text8)); // 16
     }
 
     public static int countUniqChars(String text) {
@@ -26,7 +37,19 @@ public class UniqChars {
             return 1;
         }
 
-        String[] chars = text.split("");
+        boolean[] isItThere = new boolean[Character.MAX_VALUE];
+        for (int i = 0; i < text.length(); i++) {
+            isItThere[text.charAt(i)] = true;
+        }
+
+        int count = 0;
+        for (boolean b : isItThere) {
+            if (b) {
+                count++;
+            }
+        }
+
+        /*String[] chars = text.split("");
         System.out.println(Arrays.toString(chars));
         int count = 0;
 
@@ -40,7 +63,26 @@ public class UniqChars {
                 isRepeat = false;
             }
             key = chars[i];
-        }
+        }*/
         return count;
+    }
+
+    static int cntDistinct(String str) {
+
+        // Set to store unique characters
+        // in the given string
+        HashSet<Character> s = new HashSet<Character>();
+
+        // Loop to traverse the string
+        for(int i = 0; i < str.length(); i++)
+        {
+
+            // Insert current character
+            // into the set
+            s.add(str.charAt(i));
+        }
+
+        // Return Answer
+        return s.size();
     }
 }
